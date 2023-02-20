@@ -1,8 +1,13 @@
+import { getVercelNoCacheCookieDeleteValue } from "@/lib/ssrUtils";
 import { NextApiHandler } from "next";
 
 const clearPreviewModeCookies: NextApiHandler = (req, res) => {
   if (req.method === "POST") {
-    res.clearPreviewData({}).status(200).json("Successful");
+    res
+      .setHeader("Set-Cookie", getVercelNoCacheCookieDeleteValue())
+      .clearPreviewData({})
+      .status(200)
+      .json("Successful");
   }
 
   return res.status(400);

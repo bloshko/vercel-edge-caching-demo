@@ -2,6 +2,7 @@ import { NextApiHandler } from "next";
 import { PREVIEW_TOKEN_PRIVATE } from "@/config";
 import { fetchProductSlugByEntryId } from "@/lib/contentfulAPI";
 import { paths } from "@/paths";
+import { getVercelNoCacheCookieAddValue } from "@/lib/ssrUtils";
 
 const preview: NextApiHandler = async (req, res) => {
   const token = req.query?.token;
@@ -22,8 +23,9 @@ const preview: NextApiHandler = async (req, res) => {
   }
 
   return res
-    .setPreviewData("", { maxAge: 60 * 60 })
     .setHeader("Cache-Control", "no-store, no-store")
+    .setHeader("Set-Cookie", getVercelNoCacheCookieAddValue())
+    .setPreviewData("", { maxAge: 60 * 60 })
     .redirect(`${paths.product}/${entrySlug}`);
 };
 

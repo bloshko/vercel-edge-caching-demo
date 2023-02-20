@@ -1,4 +1,4 @@
-import { MOCK_AUTHORIZATION_COOKIE_NAME } from "@/config";
+import { VERCEL_NO_CACHE_COOKIE_NAME } from "@/config";
 import { GetServerSidePropsContext, Redirect } from "next";
 import { fetchProductById, fetchProductBySku } from "./saleorApi";
 
@@ -95,3 +95,20 @@ export const getSaleorProductWithContentfulProductField: GetSaleorProduct =
 
     return null;
   };
+
+export const getVercelNoCacheCookieAddValue = () => {
+  const isDevelopment = process.env.NODE_ENV === "development";
+  const secure = isDevelopment ? "" : "Secure;";
+
+  const vercelNoCacheCookie = `${VERCEL_NO_CACHE_COOKIE_NAME}=1; path=/; Max-Age=3600; ${secure} SameSite=Lax;`;
+
+  return vercelNoCacheCookie;
+};
+
+export const getVercelNoCacheCookieDeleteValue = () => {
+  const maxAgeZeroAttribute = "Max-Age=0";
+
+  const expiredVercelNoCacheCookie = `${VERCEL_NO_CACHE_COOKIE_NAME}=; path=/; SameSite=Strict; ${maxAgeZeroAttribute}`;
+
+  return expiredVercelNoCacheCookie;
+};
