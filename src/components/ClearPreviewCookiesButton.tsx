@@ -4,7 +4,8 @@ export const ClearPreviewCookiesButton: React.FC = () => {
   const { reload } = useRouter();
 
   const handleClick = async () => {
-    await fetch("/api/clear-preview-mode-cookies");
+    await fetch("/api/clear-preview-mode-cookies", { method: "POST" });
+
     reload();
   };
 
