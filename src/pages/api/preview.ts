@@ -28,8 +28,6 @@ const preview: NextApiHandler = async (req, res) => {
       "no-store, no-store, max-age=0; must-revalidate"
     )
     .setHeader("Set-Cookie", getVercelNoCacheCookieAddValue())
-    .setHeader("Pragma", "no-cache")
-    .setHeader("Expires", "Wed, 11 Jan 1984 05:00:00 GMT")
     .setPreviewData("", { maxAge: 60 * 60 })
     .redirect(`${paths.product}/${entrySlug}`);
 };
