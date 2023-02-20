@@ -23,10 +23,10 @@ const preview: NextApiHandler = async (req, res) => {
   }
 
   return res
-    .setHeader("Cache-Control", "no-store, no-store")
+    .setHeader("Cache-Control", "no-store, no-store, max-age=0")
     .setHeader("Set-Cookie", getVercelNoCacheCookieAddValue())
     .setPreviewData("", { maxAge: 60 * 60 })
-    .redirect(`${paths.product}/${entrySlug}`);
+    .redirect(302, `${paths.product}/${entrySlug}`);
 };
 
 export default preview;
