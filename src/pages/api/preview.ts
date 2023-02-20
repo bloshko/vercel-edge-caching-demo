@@ -31,7 +31,7 @@ const preview: NextApiHandler = async (req, res) => {
     .setHeader("Pragma", "no-cache")
     .setHeader("Expires", "Wed, 11 Jan 1984 05:00:00 GMT")
     .setPreviewData("", { maxAge: 60 * 60 })
-    .redirect(302, `${paths.product}/${entrySlug}`);
+    .redirect(`${paths.product}/${entrySlug}`);
 };
 
 export default preview;
