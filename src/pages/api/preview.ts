@@ -23,7 +23,10 @@ const preview: NextApiHandler = async (req, res) => {
   }
 
   return res
-    .setHeader("Cache-Control", "no-store, no-store, max-age=0")
+    .setHeader(
+      "Cache-Control",
+      "no-store, no-store, max-age=0; must-revalidate"
+    )
     .setHeader("Set-Cookie", getVercelNoCacheCookieAddValue())
     .setHeader("Pragma", "no-cache")
     .setHeader("Expires", "Wed, 11 Jan 1984 05:00:00 GMT")
