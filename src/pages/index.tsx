@@ -18,14 +18,12 @@ const Home: React.FC<HomeProps> = ({ productItems, isPreview }) => {
   const getProductUrl = (slug: string) => {
     return `${paths.product}/${slug}${isPreview ? "?preview" : ""}`;
   };
+
   return (
     <>
       <Head>
         <title>Vercel Edge caching demo</title>
       </Head>
-      <header>
-        <LoginButton />
-      </header>
       <section className="product-links-container ">
         <h2>Products</h2>
         {productItems.map(({ slug, title }) => (

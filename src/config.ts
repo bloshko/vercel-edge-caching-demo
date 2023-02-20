@@ -19,3 +19,5 @@ export const MOCK_AUTHORIZATION_COOKIE_NAME = "MockAuthorization";
 export const VERCEL_NO_CACHE_COOKIE_NAME = "_vercel_no_cache";
 
 export const SALEOR_API = process.env.SALEOR_API || "";
+
+export const PREVIEW_TOKEN_PRIVATE = process.env.PREVIEW_TOKEN_PRIVATE ?? null;

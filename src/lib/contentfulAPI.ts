@@ -22,6 +22,8 @@ export const fetchFromContentful = async (query: string, preview = false) => {
   ).then((response) => response.json());
 };
 
+type FetchReturn<T> = Promise<T | undefined>;
+
 type Product = {
   title: string;
   description: string;
@@ -34,7 +36,7 @@ type Product = {
 type FetchProductBySlug = (
   slug: string,
   isPreview?: boolean
-) => Promise<Product | undefined>;
+) => FetchReturn<Product>;
 
 export const fetchProductBySlug: FetchProductBySlug = async (
   slug,
@@ -64,9 +66,7 @@ export const fetchProductBySlug: FetchProductBySlug = async (
 
 export type ProductItem = { slug: string; title: string };
 
-type FetchAllProducts = (
-  isPreview?: boolean
-) => Promise<ProductItem[] | undefined>;
+type FetchAllProducts = (isPreview?: boolean) => FetchReturn<ProductItem[]>;
 
 export const fetchAllProducts: FetchAllProducts = async (isPreview) => {
   const previewArgument = isPreview ? "true" : "false";
@@ -84,4 +84,27 @@ export const fetchAllProducts: FetchAllProducts = async (isPreview) => {
   const response = await fetchFromContentful(query, isPreview);
 
   return response?.data?.productCollection?.items as ProductItem[] | undefined;
+};
+
+type FetchProductByEntryId = (
+  entryId: string,
+  isPreview?: boolean
+) => FetchReturn<string>;
+
+export const fetchProductSlugByEntryId: FetchProductByEntryId = async (
+  entryId,
+  isPreview
+) => {
+  const previewArgument = isPreview ? "true" : "false";
+
+  const query = `
+    query {
+      product(id: "${entryId}", preview: ${previewArgument}) {
+        slug
+      }
+    }`;
+
+  const response = await fetchFromContentful(query, isPreview);
+
+  return response?.data?.product?.slug as string | undefined;
 };

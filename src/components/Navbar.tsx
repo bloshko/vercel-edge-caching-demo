@@ -1,22 +1,17 @@
 import { paths } from "../paths";
-import { LoginButton } from "./LoginButton";
-import { NavbarLink } from "./NavbarLink";
-import { useRouter } from "next/router";
+import { ClearPreviewCookiesButton } from "./ClearPreviewCookiesButton";
 
-interface NavbarProps {
-  showLoginToPreview?: boolean;
+import { NavbarLink } from "./NavbarLink";
+
+interface Navbar {
+  isPreviewMode?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ showLoginToPreview }) => {
+export const Navbar: React.FC<Navbar> = ({ isPreviewMode }) => {
   return (
     <nav>
       <NavbarLink href={paths.home}>Home</NavbarLink>
-      <div className="nav-group">
-        {showLoginToPreview && (
-          <strong className="note">Log in to see preview content</strong>
-        )}
-        <LoginButton />
-      </div>
+      {isPreviewMode && <ClearPreviewCookiesButton />}
     </nav>
   );
 };

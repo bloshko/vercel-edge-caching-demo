@@ -12,10 +12,10 @@ export const LoginButton: React.FC = ({}) => {
 
     const body = await response.json();
     const isLoginSuccessful = body.login === "Successful";
-
     if (!isLoginSuccessful) {
       // handle errors
     }
+
     reload();
   };
 
@@ -37,5 +37,5 @@ export const LoginButton: React.FC = ({}) => {
 
   const handleLoginClick = isLoggedIn ? handleLogOut : handleLogin;
 
-  return <input type="button" onClick={handleLoginClick} value={buttonText} />;
+  return <button onClick={handleLoginClick}>{buttonText}</button>;
 };

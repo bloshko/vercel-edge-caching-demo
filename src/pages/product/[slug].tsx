@@ -17,27 +17,25 @@ interface ProductPageProps {
   title: string;
   description: string;
   imageUrl: string;
-  isPreview?: boolean;
+  isPreviewMode?: boolean;
   ssrDate: string;
-  showLoginToPreview?: boolean;
 }
 
 const ProductPage: NextPage<ProductPageProps> = ({
   title,
   description,
   imageUrl,
-  isPreview,
+  isPreviewMode,
   ssrDate,
-  showLoginToPreview,
 }) => {
-  const pageHeader = isPreview ? "Preview" : "Published";
+  const pageHeader = isPreviewMode ? "Preview" : "Published";
 
   return (
     <>
       <Head>
         <title>Vercel Edge caching demo</title>
       </Head>
-      <Navbar showLoginToPreview={showLoginToPreview} />
+      <Navbar isPreviewMode={isPreviewMode} />
       <header>
         <h1>{pageHeader}</h1>
         <small>SSR date - {ssrDate}</small>
@@ -78,8 +76,7 @@ export const getServerSideProps: GetServerSideProps<
     return redirectTo(paths.home);
   }
 
-  const { isAuthorized, shouldUsePreviewApi, doesRequestPreview, hasToWait } =
-    getOptionsFromContext(context);
+  const { shouldUsePreviewApi, hasToWait } = getOptionsFromContext(context);
 
   if (hasToWait) {
     await waitForFewSeconds();
@@ -112,9 +109,8 @@ export const getServerSideProps: GetServerSideProps<
       title: productTitle,
       imageUrl: productImageUrl,
       description,
-      isPreview: shouldUsePreviewApi,
+      isPreviewMode: shouldUsePreviewApi,
       ssrDate: new Date().toISOString(),
-      showLoginToPreview: doesRequestPreview && !isAuthorized,
     },
   };
 };

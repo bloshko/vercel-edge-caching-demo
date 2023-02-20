@@ -60,7 +60,7 @@ a:hover {
 nav {
   padding: 1em;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 2em;
 }
 
@@ -78,7 +78,7 @@ img {
   height: auto;
 }
 
-input[type=button] {
+button {
   padding: 0.5em;
 }
 
