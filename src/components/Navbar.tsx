@@ -1,17 +1,15 @@
+import { useRouter } from "next/router";
 import { paths } from "../paths";
 import { ClearPreviewCookiesButton } from "./ClearPreviewCookiesButton";
 
 import { NavbarLink } from "./NavbarLink";
 
-interface Navbar {
-  isPreviewMode?: boolean;
-}
-
-export const Navbar: React.FC<Navbar> = ({ isPreviewMode }) => {
+export const Navbar: React.FC = () => {
+  const { isPreview } = useRouter();
   return (
     <nav>
       <NavbarLink href={paths.home}>Home</NavbarLink>
-      {isPreviewMode && <ClearPreviewCookiesButton />}
+      {isPreview && <ClearPreviewCookiesButton />}
     </nav>
   );
 };

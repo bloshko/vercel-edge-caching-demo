@@ -12,12 +12,12 @@ import {
   getSaleorProductWithContentfulProductField,
 } from "@/lib/ssrUtils";
 import { paths } from "@/paths";
+import { useRouter } from "next/router";
 
 interface ProductPageProps {
   title: string;
   description: string;
   imageUrl: string;
-  isPreviewMode?: boolean;
   ssrDate: string;
 }
 
@@ -25,17 +25,17 @@ const ProductPage: NextPage<ProductPageProps> = ({
   title,
   description,
   imageUrl,
-  isPreviewMode,
   ssrDate,
 }) => {
-  const pageHeader = isPreviewMode ? "Preview" : "Published";
+  const { isPreview } = useRouter();
+  const pageHeader = isPreview ? "Preview" : "Published";
 
   return (
     <>
       <Head>
         <title>Vercel Edge caching demo</title>
       </Head>
-      <Navbar isPreviewMode={isPreviewMode} />
+      <Navbar />
       <header>
         <h1>{pageHeader}</h1>
         <small>SSR date - {ssrDate}</small>
@@ -109,7 +109,6 @@ export const getServerSideProps: GetServerSideProps<
       title: productTitle,
       imageUrl: productImageUrl,
       description,
-      isPreviewMode: shouldUsePreviewApi,
       ssrDate: new Date().toISOString(),
     },
   };

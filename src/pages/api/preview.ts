@@ -23,6 +23,7 @@ const preview: NextApiHandler = async (req, res) => {
 
   return res
     .setPreviewData("", { maxAge: 60 * 60 })
+    .setHeader("Cache-Control", "no-cache")
     .redirect(`${paths.product}/${entrySlug}`);
 };
 
