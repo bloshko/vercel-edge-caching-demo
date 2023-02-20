@@ -29,20 +29,18 @@ export const notFound = () =>
 export const getOptionsFromContext = ({
   req,
   query,
+  preview,
 }: GetServerSidePropsContext) => {
   const isMockAuthorizationCookiePresent =
     MOCK_AUTHORIZATION_COOKIE_NAME in req.cookies;
 
-  const isPreviewParameterPresent = "preview" in query;
-
-  const shouldUsePreviewApi =
-    isMockAuthorizationCookiePresent && isPreviewParameterPresent;
+  const shouldUsePreviewApi = isMockAuthorizationCookiePresent && preview;
 
   const hasToWait = "wait" in query;
 
   return {
     isAuthorized: isMockAuthorizationCookiePresent,
-    doesRequestPreview: isPreviewParameterPresent,
+    doesRequestPreview: !!preview,
     shouldUsePreviewApi,
     hasToWait,
   } as const;
